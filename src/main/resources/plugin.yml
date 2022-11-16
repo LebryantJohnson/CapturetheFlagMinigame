@@ -1,0 +1,11 @@
+name: CaptureTheCastle
+version: ${project.version}
+main: me.lebryant.capturethecastle.CaptureTheCastle
+authors: [ LebryantJohnson ]
+commands:
+  ccadmingui:
+    description: open command gui
+    usage: /<command>
+  capturethecastle:
+    description: basic command
+    usage: /<command>
