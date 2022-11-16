@@ -3,6 +3,7 @@ package me.lebryant.capturethecastle;
 import me.lebryant.capturethecastle.commands.AdminGUICommand;
 import me.lebryant.capturethecastle.commands.selfcommand;
 import me.lebryant.capturethecastle.events.AdminGUI_Clicks;
+import me.lebryant.capturethecastle.core.GameManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class CaptureTheCastle extends JavaPlugin {
 
     public static CaptureTheCastle main;
-
+    private GameManager gameManager;
     @Override
     public void onEnable() {
         main=this;
@@ -20,7 +21,7 @@ public final class CaptureTheCastle extends JavaPlugin {
         getServer().getPluginManager().registerEvents( new AdminGUI_Clicks(), this);
 
         this.saveDefaultConfig();
-
+        this.gameManager=new GameManager(this);
 
         //send messages to console
         Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "-----------========      Capture the Castle     ========-----------");

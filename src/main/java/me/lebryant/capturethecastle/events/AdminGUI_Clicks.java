@@ -21,7 +21,7 @@ public class AdminGUI_Clicks implements Listener {
 
             if(e.getCurrentItem() .getType()== null){return;}
             if (e.getCurrentItem().getType() == Material.DIAMOND_SWORD){
-            p.sendMessage(ChatColor.RED + "Closed Panel");
+            p.sendMessage(ChatColor.DARK_RED + "Closed Panel");
             p.closeInventory();
             }
 
