@@ -1,6 +1,6 @@
 package me.lebryant.capturethecastle.commands;
 
-import me.lebryant.capturethecastle.AdminGuiPanel;
+import me.lebryant.capturethecastle.menus.AdminGuiPanel;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

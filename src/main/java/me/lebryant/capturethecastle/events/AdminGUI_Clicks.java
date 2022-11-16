@@ -1,6 +1,6 @@
 package me.lebryant.capturethecastle.events;
 
-import me.lebryant.capturethecastle.AdminGuiPanel;
+import me.lebryant.capturethecastle.menus.AdminGuiPanel;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

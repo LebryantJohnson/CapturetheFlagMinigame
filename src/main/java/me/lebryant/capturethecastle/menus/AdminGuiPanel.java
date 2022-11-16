@@ -1,5 +1,6 @@
-package me.lebryant.capturethecastle;
+package me.lebryant.capturethecastle.menus;
 
+import me.lebryant.capturethecastle.CaptureTheCastle;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
