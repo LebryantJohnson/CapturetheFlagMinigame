@@ -1,7 +1,7 @@
 package me.lebryant.capturethecastle;
 
-import me.lebryant.capturethecastle.commands.AdminGUICommand;
-import me.lebryant.capturethecastle.commands.selfcommand;
+import me.lebryant.capturethecastle.commands.*;
+import me.lebryant.capturethecastle.core.BlockManager;
 import me.lebryant.capturethecastle.events.AdminGUI_Clicks;
 import me.lebryant.capturethecastle.core.GameManager;
 import org.bukkit.Bukkit;
@@ -14,14 +14,24 @@ public final class CaptureTheCastle extends JavaPlugin {
     private GameManager gameManager;
     @Override
     public void onEnable() {
+
         main=this;
         // Plugin startup logic
+        this.saveDefaultConfig();
+        this.gameManager= new GameManager(this);
+        //register commands
         getCommand("capturethecastle").setExecutor(new selfcommand());
         getCommand("ccadmingui").setExecutor(new AdminGUICommand());
-        getServer().getPluginManager().registerEvents( new AdminGUI_Clicks(), this);
+        getCommand("start").setExecutor(new Start(this.gameManager));
+        getCommand("lobby").setExecutor(new lobby_command(this.gameManager));
+        getCommand("setlobby").setExecutor(new setlobby_command(this.gameManager));
 
-        this.saveDefaultConfig();
-        this.gameManager=new GameManager(this);
+
+        //register events
+        getServer().getPluginManager().registerEvents( new AdminGUI_Clicks(), this);
+        getServer().getPluginManager().registerEvents(new BlockManager(), this);
+
+
 
         //send messages to console
         Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "-----------========      Capture the Castle     ========-----------");
@@ -34,6 +44,7 @@ public final class CaptureTheCastle extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        gameManager.cleanUp();
     }
 }
 

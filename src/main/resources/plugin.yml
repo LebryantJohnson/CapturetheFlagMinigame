@@ -6,6 +6,19 @@ commands:
   ccadmingui:
     description: open command gui
     usage: /<command>
+    permission: cc.admin
   capturethecastle:
     description: basic command
     usage: /<command>
+  setlobby:
+    description: sets the lobby location for the minigame
+    usage: /<command>
+    permission: cc.admin
+  lobby:
+    description: tp to lobby
+    usage: /<command>
+  start:
+    description: starts game no matter what
+    usage: /<command>
+    permission: cc.admin
+
