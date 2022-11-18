@@ -21,4 +21,8 @@ commands:
     description: starts game no matter what
     usage: /<command>
     permission: cc.admin
+  setarenalocation:
+    description: set arena location
+    usage: /<command>
+    permission: cc.admin
 

@@ -4,3 +4,6 @@ GUI:
   Admin:
     size:
     name:
+Arenas:
+  amount: 10
+  world:

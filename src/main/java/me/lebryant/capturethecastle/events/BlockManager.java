@@ -1,10 +1,10 @@
-package me.lebryant.capturethecastle.core;
+package me.lebryant.capturethecastle.events;
 
+import me.lebryant.capturethecastle.core.GameManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BlockManager implements Listener {
@@ -34,4 +34,5 @@ public class BlockManager implements Listener {
             block.setCancelled(true);
         }
     }
+
 }

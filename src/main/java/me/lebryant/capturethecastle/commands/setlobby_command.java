@@ -1,7 +1,6 @@
 package me.lebryant.capturethecastle.commands;
 
 import me.lebryant.capturethecastle.core.GameManager;
-import me.lebryant.capturethecastle.core.GameState;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
