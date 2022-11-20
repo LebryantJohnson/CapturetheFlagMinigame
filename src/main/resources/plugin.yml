@@ -2,6 +2,7 @@ name: CaptureTheCastle
 version: ${project.version}
 main: me.lebryant.capturethecastle.CaptureTheCastle
 authors: [ LebryantJohnson ]
+softdepend: [PlaceholderAPI]
 commands:
   ccadmingui:
     description: open command gui

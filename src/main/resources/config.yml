@@ -1,9 +1,7 @@
-// Welcome to the Capture the Castle Configuration
+# Welcome to the Capture the Castle Configuration
 
-GUI:
-  Admin:
-    size:
-    name:
-Arenas:
-  amount: 10
-  world:
+# set the text for the game scoreboard (uses fast board api)
+gameScoreboard:
+  - "monkey"
+  - "balls"
+  - "nuts"

@@ -1,7 +1,7 @@
 package me.lebryant.capturethecastle;
 
 import me.lebryant.capturethecastle.commands.*;
-import me.lebryant.capturethecastle.events.BlockManager;
+import me.lebryant.capturethecastle.events.PlayerManager;
 import me.lebryant.capturethecastle.events.AdminGUI_Clicks;
 import me.lebryant.capturethecastle.core.GameManager;
 import org.bukkit.Bukkit;
@@ -44,16 +44,19 @@ public final class CaptureTheCastle extends JavaPlugin {
         getCommand("createccarena").setExecutor(new create(this.gameManager));
         //register events
         getServer().getPluginManager().registerEvents( new AdminGUI_Clicks(), this);
-        getServer().getPluginManager().registerEvents(new BlockManager(), this);
-
+        getServer().getPluginManager().registerEvents(new PlayerManager(), this);
         //send messages to console
         Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "-----------========      Capture the Castle     ========-----------");
         Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "- Welcome to Capture the Castle Plugin. View our github for help: https://github.com/LebryantJohnson/CapturetheFlagMinigame");
         Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "- If an error occurs you are supposed to contact the developer and DO NOT try out things yourself.");
         Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "- Report bugs to the developer if there are any.");
         Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "-----------=========================-----------");
+
+        gameManager.loadGames();
     }
 
+
+    // create the data.yml file to store data essential to the minigame
     public FileConfiguration getDataConfig(){
         return this.dataConfig;
     }
@@ -73,7 +76,7 @@ public final class CaptureTheCastle extends JavaPlugin {
    public void saveData(){
         if(this.dataConfig==null) {
 
-        };
+        }
         try{
             this.getDataConfig().save(this.dataConfigFile);
         } catch (IOException e){
@@ -88,8 +91,6 @@ public final class CaptureTheCastle extends JavaPlugin {
             this.saveResource("data.yml", false);
         }
    }
-
-
 
 
     @Override

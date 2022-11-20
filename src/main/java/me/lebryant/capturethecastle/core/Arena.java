@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class Arena {
-    private final int id;
+    public int id;
     public final Location spawn;
     private final List<UUID> players = new ArrayList<UUID>();
 

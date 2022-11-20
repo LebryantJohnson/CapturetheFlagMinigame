@@ -1,6 +1,8 @@
 package me.lebryant.capturethecastle.commands;
 
+import fr.mrmicky.fastboard.FastBoard;
 import me.lebryant.capturethecastle.core.GameManager;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,6 +31,8 @@ public class join implements CommandExecutor {
                 return false;
             }
             gameManager.addPlayer(p, num);
+            gameManager.createBoard(p);
+
             return true;
         }
         return false;

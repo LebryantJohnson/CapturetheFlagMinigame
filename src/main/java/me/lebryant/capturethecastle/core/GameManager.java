@@ -1,5 +1,6 @@
 package me.lebryant.capturethecastle.core;
 
+import fr.mrmicky.fastboard.FastBoard;
 import me.lebryant.capturethecastle.CaptureTheCastle;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,23 +12,22 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 public class GameManager {
-    private static GameManager manager;
     private final CaptureTheCastle plugin;
     public GameState gameState= GameState.LOBBY;
 
     //player data
-    private final Map<UUID, Location> locs = new HashMap<UUID, Location>();
-    private final Map<UUID, ItemStack[]> inv = new HashMap<UUID, ItemStack[]>();
-    private final Map<UUID, ItemStack[]> armor = new HashMap<UUID, ItemStack[]>();
+    private final Map<UUID, Location> locs = new HashMap<>();
+    private final Map<UUID, ItemStack[]> inv = new HashMap<>();
+    private final Map<UUID, ItemStack[]> armor = new HashMap<>();
 
-    private final List<Arena> arenas = new ArrayList<Arena>();
+    private final List<Arena> arenas = new ArrayList<>();
     private int arenaSize = 0;
 
 
 
     public GameManager(CaptureTheCastle plugin) {
+
         this.plugin = plugin;
-        Location lobbyCord= new Location(Bukkit.getWorld("world"), 0,0,0);
     }
 
 
@@ -78,7 +78,7 @@ public class GameManager {
         p.getInventory().setArmorContents(null);
         p.getInventory().clear();
 
-        // Save the players's last location before joining,
+        // Save the players' last location before joining,
         // then teleporting them to the arena spawn
         locs.put(p.getUniqueId(), p.getLocation());
         p.teleport(a.spawn);
@@ -114,8 +114,8 @@ public class GameManager {
         p.getInventory().setArmorContents(null);
 
         // Restore inventory and armor
-        p.getInventory().setContents(inv.get(p.getName()));
-        p.getInventory().setArmorContents(armor.get(p.getName()));
+        // p.getInventory().setContents(inv.get(p.getName()));
+        // p.getInventory().setArmorContents(armor.get(p.getName()));
 
         // Remove player data entries
         inv.remove(p.getUniqueId());
@@ -135,11 +135,18 @@ public class GameManager {
      * @param loc the location for arena spawn
      * @return the arena created
      */
-    public Arena createArena(Location loc) {
-        this.arenaSize++;
+    public Arena createArena(Location loc){
+        int num = arenaSize + 1;
+        arenaSize++;
 
-        Arena a = new Arena(this.arenaSize, loc);
-        this.arenas.add(a);
+        Arena a = new Arena(num, loc);
+        arenas.add(a);
+
+        plugin.getDataConfig().set("Arenas." + num, serializeLoc(loc));
+        List<Integer> list = plugin.getDataConfig().getIntegerList("Arenas.Arenas");
+        list.add(num);
+        plugin.getDataConfig().set("Arenas.Arenas", list);
+        plugin.saveData();
 
         return a;
     }
@@ -158,6 +165,45 @@ public class GameManager {
         return false;
     }
 
+    public void loadGames(){
+        arenaSize = 0;
+
+        if(plugin.getDataConfig().getIntegerList("Arenas.Arenas").isEmpty()){
+            return;
+        }
+
+        for(int i : plugin.getDataConfig().getIntegerList("Arenas.Arenas")){
+            Arena a = reloadArena(deserializeLoc(plugin.getDataConfig().getString("Arenas." + i)));
+            a.id = i;
+        }
+    }
+
+    public Arena reloadArena(Location loc) {
+        int num = arenaSize + 1;
+        arenaSize++;
+
+        Arena a = new Arena(num, loc);
+        arenas.add(a);
+
+        return a;
+    }
+
+
+    //remove arena
+    public void removeArena(int i) {
+        Arena a = getArena(i);
+        if(a == null) {
+            return;
+        }
+        arenas.remove(a);
+
+        plugin.getDataConfig().set("Arenas." + i, null);
+        List<Integer> list = plugin.getDataConfig().getIntegerList("Arenas.Arenas");
+        list.remove(i);
+        plugin.getDataConfig().set("Arenas.Arenas", list);
+        plugin.saveData();
+    }
+
     // UTILITY METHODS
 
     public String serializeLoc(Location l){
@@ -170,12 +216,17 @@ public class GameManager {
     }
 
 
+
+
+    // set the coordinates of the lobby
     public void updateLobbyCords(Location inputLocation, World inputworld, Player p){
         Location lobby= inputLocation;
         plugin.getDataConfig().set("lobby.world", lobby);
         plugin.saveData();
         p.sendMessage(ChatColor.GREEN+"Set Cords to: " + lobby.getX() + " "+ lobby.getY()+" "+ lobby.getZ());
+
     }
+    // tp the player to the lobby cords
     public void getLobbyCords(Player p){
         Location loc = (Location) plugin.getDataConfig().get("lobby.world");
         p.teleport(loc);
@@ -206,14 +257,20 @@ public class GameManager {
 
     }
 
-    public void Setup(){
-        int AmountofArenas= (int) plugin.getConfig().get("Arenas.amount");
-        Location loc = (Location) plugin.getConfig().get("Arenas.world");
-        for (AmountofArenas = 1; AmountofArenas <= 10; AmountofArenas++){
-            //
+    public void createBoard(Player p ){
+        FastBoard gameBoard = new FastBoard(p);
+        // Set the title
+        gameBoard.updateTitle(ChatColor.GOLD + "Capture the Castle Minigame");
+        // Change the lines
+        ArrayList<String> linesArray = new ArrayList<String>();
+        for(String lines : plugin.getConfig().getStringList("gameScoreboard")){
+            linesArray.add(lines);
         }
-    }
+        gameBoard.updateLines(
+                linesArray
+        );
 
+    }
     public void cleanUp(){
 
     }
