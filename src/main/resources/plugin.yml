@@ -25,4 +25,13 @@ commands:
     description: set arena location
     usage: /<command>
     permission: cc.admin
-
+  join:
+    description: join arena
+    usage: /<command>
+  leave:
+    description: leave arena
+    usage: /<command>
+  createccarena:
+    description: create arena
+    usage: /<command>
+    permission: cc.admin

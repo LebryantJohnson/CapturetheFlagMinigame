@@ -25,9 +25,6 @@ public final class CaptureTheCastle extends JavaPlugin {
     public void onEnable() {
 
         main=this;
-
-
-
         // Plugin startup logic
         this.saveDefaultConfig();
         createDataConfig();
@@ -41,12 +38,13 @@ public final class CaptureTheCastle extends JavaPlugin {
         getCommand("lobby").setExecutor(new lobby_command(this.gameManager));
         getCommand("setlobby").setExecutor(new setlobby_command(this.gameManager));
         getCommand("setarenalocation").setExecutor(new arenaloc(this.gameManager));
-
+        getCommand("join").setExecutor(new join(this.gameManager));
+        getCommand("leave").setExecutor(new leave(this.gameManager));
+        getCommand("createccarena").setExecutor(new create(this.gameManager));
+        getCommand("createccarena").setExecutor(new create(this.gameManager));
         //register events
         getServer().getPluginManager().registerEvents( new AdminGUI_Clicks(), this);
         getServer().getPluginManager().registerEvents(new BlockManager(), this);
-
-
 
         //send messages to console
         Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "-----------========      Capture the Castle     ========-----------");
