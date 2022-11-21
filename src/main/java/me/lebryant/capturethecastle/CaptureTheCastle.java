@@ -37,11 +37,10 @@ public final class CaptureTheCastle extends JavaPlugin {
         getCommand("start").setExecutor(new Start(this.gameManager));
         getCommand("lobby").setExecutor(new lobby_command(this.gameManager));
         getCommand("setlobby").setExecutor(new setlobby_command(this.gameManager));
-        getCommand("setarenalocation").setExecutor(new arenaloc(this.gameManager));
         getCommand("join").setExecutor(new join(this.gameManager));
         getCommand("leave").setExecutor(new leave(this.gameManager));
         getCommand("createccarena").setExecutor(new create(this.gameManager));
-        getCommand("createccarena").setExecutor(new create(this.gameManager));
+        getCommand("removeccarena").setExecutor(new remove(this.gameManager));
         //register events
         getServer().getPluginManager().registerEvents( new AdminGUI_Clicks(), this);
         getServer().getPluginManager().registerEvents(new PlayerManager(), this);

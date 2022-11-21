@@ -18,13 +18,10 @@ public class leave implements CommandExecutor {
         }
         if (command.getName().equalsIgnoreCase("leave")) {
             Player p = (Player) sender;
-            boolean playercheck = gameManager.isInGame(p);
-            if(playercheck=true) {
-                gameManager.removePlayer(p);
-                gameManager.getLobbyCords(p);
+            gameManager.removePlayer(p);
+            p.sendMessage("You have left the arena!");
 
-                return true;
-            }
+            return true;
         }
         return false;
     }

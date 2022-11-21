@@ -36,3 +36,7 @@ commands:
     description: create arena
     usage: /<command>
     permission: cc.admin
+  removeccarena:
+    description: remove arena
+    usage: /<command>
+    permission: cc.admin

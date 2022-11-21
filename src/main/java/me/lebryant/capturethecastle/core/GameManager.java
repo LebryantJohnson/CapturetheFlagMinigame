@@ -18,7 +18,7 @@ public class GameManager {
     //player data
     private final Map<UUID, Location> locs = new HashMap<>();
     private final Map<UUID, ItemStack[]> inv = new HashMap<>();
-    private final Map<UUID, ItemStack[]> armor = new HashMap<>();
+    private final Map<String, ItemStack[]> armor = new HashMap<String, ItemStack[]>();
 
     private final List<Arena> arenas = new ArrayList<>();
     private int arenaSize = 0;
@@ -55,33 +55,22 @@ public class GameManager {
      * @param p the player to add
      * @param i the arena ID. A check will be done to ensure its validity.
      */
-    public void addPlayer(Player p, int i) {
-        Arena a = this.getArena(i);
-        if (a == null) {
+    public void addPlayer(Player p, int i){
+        Arena a = getArena(i);//get the arena you want to join
+        if(a == null){//make sure it is not null
             p.sendMessage("Invalid arena!");
             return;
         }
 
-        if (this.isInGame(p)) {
-            p.sendMessage("Cannot join more than 1 game!");
-            return;
-        }
+        a.getPlayers().add(p.getUniqueId());//add them to the arena list of players
+        inv.put(p.getUniqueId(), p.getInventory().getContents());//save inventory
+        armor.put(p.getName(), p.getInventory().getArmorContents());
 
-        // Adds the player to the arena player list
-        a.getPlayers().add(p.getUniqueId());
-
-        // Save the inventory and armor
-        inv.put(p.getUniqueId(), p.getInventory().getContents());
-        armor.put(p.getUniqueId(), p.getInventory().getArmorContents());
-
-        // Clear inventory and armor
         p.getInventory().setArmorContents(null);
         p.getInventory().clear();
 
-        // Save the players' last location before joining,
-        // then teleporting them to the arena spawn
         locs.put(p.getUniqueId(), p.getLocation());
-        p.teleport(a.spawn);
+        p.teleport(a.spawn);//teleport to the arena spawn
     }
     /**
      * Removes the player from their current arena.
@@ -136,6 +125,7 @@ public class GameManager {
      * @return the arena created
      */
     public Arena createArena(Location loc){
+
         int num = arenaSize + 1;
         arenaSize++;
 
@@ -147,7 +137,6 @@ public class GameManager {
         list.add(num);
         plugin.getDataConfig().set("Arenas.Arenas", list);
         plugin.saveData();
-
         return a;
     }
 

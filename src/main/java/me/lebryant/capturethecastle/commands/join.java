@@ -10,29 +10,30 @@ import org.bukkit.entity.Player;
 
 public class join implements CommandExecutor {
     private GameManager gameManager;
-    public join(GameManager gameManager){
-        this.gameManager= gameManager;
+
+    public join(GameManager gameManager) {
+        this.gameManager = gameManager;
     }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("&aOnly Players use that!");
+            sender.sendMessage(ChatColor.RED + "&Only Players use that!");
         }
-        if(command.getName().equalsIgnoreCase("join") && args.length==0){
-            sender.sendMessage("&aYou did not specify which game to join");
-        }
+        Player p = (Player) sender;
         if (command.getName().equalsIgnoreCase("join")) {
-            Player p = (Player) sender;
+            if (args.length != 1) {
+                p.sendMessage(ChatColor.RED+"Insuffcient arguments!");
+                return true;
+            }
             int num = 0;
             try {
                 num = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
-                p.sendMessage("Invalid arena ID");
-                return false;
+                p.sendMessage(ChatColor.RED+"Invalid arena ID");
             }
             gameManager.addPlayer(p, num);
             gameManager.createBoard(p);
-
             return true;
         }
         return false;
