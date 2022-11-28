@@ -1,14 +1,17 @@
-package me.lebryant.capturethecastle.commands;
+package me.lebryant.capturethecastle.commands.admin;
 
 import me.lebryant.capturethecastle.core.GameManager;
+import me.lebryant.capturethecastle.core.GameState;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class leave implements CommandExecutor {
+public class Start implements CommandExecutor {
+
     private GameManager gameManager;
-    public leave(GameManager gameManager){
+
+    public Start(GameManager gameManager){
         this.gameManager= gameManager;
     }
     @Override
@@ -16,11 +19,8 @@ public class leave implements CommandExecutor {
         if (!(sender instanceof Player)) {
             sender.sendMessage("&aOnly Players use that!");
         }
-        if (command.getName().equalsIgnoreCase("leave")) {
-            Player p = (Player) sender;
-            gameManager.removePlayer(p);
-            p.sendMessage("You have left the arena!");
-
+        if (command.getName().equalsIgnoreCase("start") && sender.hasPermission("cc.admin")) {
+            gameManager.setGameState(GameState.STARTING);
             return true;
         }
         return false;

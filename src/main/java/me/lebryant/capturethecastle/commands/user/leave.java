@@ -1,17 +1,14 @@
-package me.lebryant.capturethecastle.commands;
+package me.lebryant.capturethecastle.commands.user;
 
 import me.lebryant.capturethecastle.core.GameManager;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class setlobby_command implements CommandExecutor {
+public class leave implements CommandExecutor {
     private GameManager gameManager;
-
-    public setlobby_command(GameManager gameManager){
+    public leave(GameManager gameManager){
         this.gameManager= gameManager;
     }
     @Override
@@ -19,13 +16,13 @@ public class setlobby_command implements CommandExecutor {
         if (!(sender instanceof Player)) {
             sender.sendMessage("&aOnly Players use that!");
         }
-        if (command.getName().equalsIgnoreCase("setlobby") && sender.hasPermission("cc.admin")) {
+        if (command.getName().equalsIgnoreCase("leave")) {
             Player p = (Player) sender;
-            Location inputLoc=p.getLocation();
-            World w = p.getWorld();
-            gameManager.updateLobbyCords(inputLoc, w, p);
+            gameManager.removePlayer(p);
+            p.sendMessage("You have left the arena!");
+
             return true;
         }
         return false;
     }
-    }
+}

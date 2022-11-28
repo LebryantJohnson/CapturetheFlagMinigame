@@ -1,6 +1,10 @@
 package me.lebryant.capturethecastle;
 
 import me.lebryant.capturethecastle.commands.*;
+import me.lebryant.capturethecastle.commands.admin.*;
+import me.lebryant.capturethecastle.commands.user.join;
+import me.lebryant.capturethecastle.commands.user.leave;
+import me.lebryant.capturethecastle.commands.user.lobby_command;
 import me.lebryant.capturethecastle.events.PlayerManager;
 import me.lebryant.capturethecastle.events.AdminGUI_Clicks;
 import me.lebryant.capturethecastle.core.GameManager;
@@ -41,6 +45,8 @@ public final class CaptureTheCastle extends JavaPlugin {
         getCommand("leave").setExecutor(new leave(this.gameManager));
         getCommand("createccarena").setExecutor(new create(this.gameManager));
         getCommand("removeccarena").setExecutor(new remove(this.gameManager));
+        getCommand("setkingspawn").setExecutor(new KingSpawn(this.gameManager, this));
+        getCommand("blueteamspawn").setExecutor(new blueteamspawn(this.gameManager));
         //register events
         getServer().getPluginManager().registerEvents( new AdminGUI_Clicks(), this);
         getServer().getPluginManager().registerEvents(new PlayerManager(), this);

@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public class Arena {
     public int id;
+    public  Location BlueSpawn;
+    public  Location RedSpawn;
     public final Location spawn;
     private final List<UUID> players = new ArrayList<UUID>();
 

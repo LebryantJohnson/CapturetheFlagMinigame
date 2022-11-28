@@ -5,3 +5,6 @@ gameScoreboard:
   - "monkey"
   - "balls"
   - "nuts"
+king:
+  name: "Bozo the Clown"
+  health: 1

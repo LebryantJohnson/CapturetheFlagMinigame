@@ -1,4 +1,4 @@
-package me.lebryant.capturethecastle.commands;
+package me.lebryant.capturethecastle.commands.user;
 
 import fr.mrmicky.fastboard.FastBoard;
 import me.lebryant.capturethecastle.core.GameManager;

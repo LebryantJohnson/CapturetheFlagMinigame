@@ -139,7 +139,11 @@ public class GameManager {
         plugin.saveData();
         return a;
     }
-
+    public void setBlueSpawn(Location loc, int ArenaCode){
+       String existingData= plugin.getDataConfig().getString("Arenas"+ArenaCode);
+       String addSpawnLoc= existingData+ serializeLoc(loc);
+       plugin.getDataConfig().set("Arenas",addSpawnLoc);
+    }
     /**
      * Checks if the player is currently in an arena
      *

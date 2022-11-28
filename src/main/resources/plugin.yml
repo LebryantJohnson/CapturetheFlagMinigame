@@ -40,3 +40,11 @@ commands:
     description: remove arena
     usage: /<command>
     permission: cc.admin
+  setkingspawn:
+    description: sets spawn of the king
+    usage: /<command>
+    permission: cc.admin
+  blueteamspawn:
+    description: sets the spawn of the blue team
+    usage: /<command>
+    permission: cc.admin
